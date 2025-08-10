@@ -1,3 +1,4 @@
+import { ModeToggle } from "@/providers/mode-toggle"
 
 
 const Navbar = () => {
@@ -76,6 +77,7 @@ const Navbar = () => {
 
       <div className="flex items-center gap-4">
         <div className="sm:flex sm:gap-4">
+          <ModeToggle/>
           <a
             className="block rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700 dark:hover:bg-teal-500"
             href="#"
