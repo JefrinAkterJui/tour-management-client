@@ -1,12 +1,12 @@
 import { config } from "@/config"
 import axios from "axios"
 
-export const exiosInstance = axios.create({
+export const axiosInstance = axios.create({
     baseURL: config.baseUrl
 });
 
 // Add a request interceptor
-axios.interceptors.request.use(function (config) {
+axiosInstance.interceptors.request.use(function (config) {
     // Do something before request is sent
     return config;
   }, function (error) {
@@ -16,7 +16,7 @@ axios.interceptors.request.use(function (config) {
 );
 
 // Add a response interceptor
-axios.interceptors.response.use(function onFulfilled(response) {
+axiosInstance.interceptors.response.use(function onFulfilled(response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     return response;

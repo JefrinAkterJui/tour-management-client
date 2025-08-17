@@ -15,6 +15,7 @@ import { Link } from "react-router";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Password from "@/components/ui/Password";
+import { useRegisterMutation } from "@/redux/freatures/auth/auth.api";
 
 const registerSchema = z
   .object({
@@ -33,10 +34,10 @@ const registerSchema = z
     path: ["confirmPassword"],
   });
 
-export function RegisterForm({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
+export function RegisterForm({ className,...props }: React.HTMLAttributes<HTMLDivElement>) {
+
+  const  [register]  = useRegisterMutation()
+
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -47,8 +48,21 @@ export function RegisterForm({
     },
   });
 
-  const onSubmit = (data: z.infer<typeof registerSchema>) => {
-    console.log("User Data:", data);
+  const onSubmit = async (data: z.infer<typeof registerSchema>) => {
+    const userInfo ={
+      name: data.name,
+      email: data.email,
+      password: data.password
+    }
+
+    try {
+      const result = await register(userInfo).unwrap()
+
+      console.log(result)
+      
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   return (
